@@ -11,6 +11,8 @@ from tensorflow.keras.models import Sequential
 
 crypto_currency = 'BTC'
 # crypto_currency = 'DOGE'
+# crypto_currency = 'ETH'
+# crypto_currency = 'XMR'
 against_currency = 'USD'
 
 start = dt.datetime(2016,1,1)
@@ -79,9 +81,24 @@ x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1],1))
 prediction_prices = model.predict(x_test)
 prediction_prices = scaler.inverse_transform(prediction_prices)
 
+# Make chart
 plt.plot(actual_prices,color='black',label='Actual Prices')
 plt.plot(prediction_prices,color='green',label='Predicted Prices')
+plt.title(f'{crypto_currency} price prediction')
 plt.xlabel('Time')
 plt.ylabel('Price')
 plt.legend(loc='upper left')
 plt.show()
+
+
+# Predict Next Day
+real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs)+ 1,0]]
+real_data = np.array(real_data)
+real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1],1))
+
+
+prediction = model.predict(real_data)
+prediction = scaler.inverse_transform(prediction)
+print()
+
+
