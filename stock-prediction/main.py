@@ -9,7 +9,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, LSTM
 
 # Load the Data
-company = 'FB'
+# company = 'FB'
+company = 'TSLA'
+
 
 start = dt.datetime(2012,1,1) # This allows us to specify the time you want to start the data
 end = dt.datetime(2020,1,1) # This allows us to specify the time you want to end ttracking the data
@@ -82,3 +84,14 @@ plt.xlabel('Time')
 plt.ylabel(f"{company} share price")
 plt.legend()
 plt.show()
+
+
+# Predict next day
+real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs+1),0]]
+real_data = np.array(real_data)
+real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1],1))
+
+# print(scaler.inverse_transform(real_data))
+prediction = model.predict(real_data)
+prediction = scaler.inverse_transform(prediction)
+print(f"Prediction: {prediction}")

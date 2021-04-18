@@ -9,8 +9,8 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.layers import Dense, Dropout, LSTM
 from tensorflow.keras.models import Sequential
 
-crypto_currency = 'BTC'
-# crypto_currency = 'DOGE'
+# crypto_currency = 'BTC'
+crypto_currency = 'DOGE'
 # crypto_currency = 'ETH'
 # crypto_currency = 'XMR'
 against_currency = 'USD'
@@ -99,6 +99,6 @@ real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1],1))
 
 prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
-print()
+print(f"Prediction: {prediction}")
 
 
